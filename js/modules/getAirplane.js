@@ -64,7 +64,7 @@ const createBlockSeats = (n, count) => {
     };
 
     return fuselage;
-}
+};
 
 const createAirplane = (title, scheme) => {
     const choicesSeat = createElement('form', {
@@ -95,8 +95,14 @@ const createAirplane = (title, scheme) => {
     return choicesSeat;
 };
 
+// Ф-ия для склонения 
+function declOfNum(number, titles) {
+    let cases = [2, 0, 1, 1, 1, 2];
+    return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+};
+
 const getAirplane = (main, data) => {
-    const title = 'Выберите места';
+    const title = `Выберите ${data.length} ${declOfNum(data.length, ['место', 'места', 'мест'])}`;
     const scheme = ['exit', 11, 'exit', 1, 'exit', 17, 'exit'];
 
     main.append(createAirplane(title, scheme))
