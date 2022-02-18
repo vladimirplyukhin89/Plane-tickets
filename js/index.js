@@ -1,5 +1,6 @@
 import start from "./modules/start.js";
 import getPersonForm from "./modules/formPerson.js";
+import getReadyPlane from "./modules/getReadyPlane.js";
 
 const init = (selectorApp, title) => {
     const app = document.querySelector(selectorApp);
@@ -12,6 +13,8 @@ const init = (selectorApp, title) => {
         const forms = getPersonForm(firstForm.count.value);
         firstForm.remove();
         main.append(...forms);
+
+        getReadyPlane(forms, main);
     })
 };
 
