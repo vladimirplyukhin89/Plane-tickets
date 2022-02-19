@@ -1,6 +1,6 @@
 import getAirplane from "./getAirplane.js";
 
-const getReadyPlane = (forms, main) => {
+const getReadyPlane = (forms, main, tourData) => {
     const data = [];
 
     forms.forEach(form => {
@@ -19,7 +19,7 @@ const getReadyPlane = (forms, main) => {
             if (data.length === forms.length) {
                 forms.forEach(form => form.remove());
                 // Передаём в функцию отрисовки посадочных мест
-                getAirplane(main, data);
+                getAirplane(main, data, tourData);
             }
         })
     });
