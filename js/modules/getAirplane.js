@@ -46,7 +46,6 @@ const createBlockSeats = (n, count, bookedSeats) => {
             const seat = createElement('li', {
                 className: 'seat',
             });
-
             const wrapperCheck = createElement('label');
             const seatValue = `${i}${letter}`;
             const check = createElement('input', {

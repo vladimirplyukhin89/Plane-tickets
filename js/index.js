@@ -2,7 +2,6 @@ import start from "./modules/start.js";
 import getPersonForm from "./modules/formPerson.js";
 import getReadyPlane from "./modules/getReadyPlane.js";
 import getData from "./modules/service/getTour.js";
-import checkSeat from "./modules/checkSeat.js";
 
 const init = async (selectorApp, title) => {
     const app = document.querySelector(selectorApp);
@@ -23,12 +22,8 @@ const init = async (selectorApp, title) => {
         getReadyPlane(forms, main, tourData);
     })
 
-    //form.addEventListener('submit', (e) => {
-    //    e.preventDefault();
-    //    console.log(forms);
-
-    //})
-
 };
+
+export default init;
 
 init('.app', 'Выберите тур');

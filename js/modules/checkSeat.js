@@ -1,4 +1,5 @@
 import { setStorage, getStorage } from "./service/storage.js";
+import createElement from "./createElements.js";
 
 const checkSeat = (form, data, id) => {
     form.addEventListener('change', () => {
@@ -43,6 +44,25 @@ const checkSeat = (form, data, id) => {
                 `Ваше место - ${booking}`
             }</h2>
     `;
+
+        const button = createElement('button', {
+            className: 'cockpit-confirm',
+            type: 'submit',
+            textContent: 'Вернуться на главную',
+        });
+
+        const div = createElement('div', {
+            className: 'title',
+        });
+
+        div.append(button);
+        document.body.append(div);
+
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            location.reload();
+        });
     });
 
 };
