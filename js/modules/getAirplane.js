@@ -110,7 +110,7 @@ const getAirplane = (main, data, tourData) => {
     const title = `Выберите ${data.length} ${declOfNum(data.length, ['место', 'места', 'мест'])}`;
     const choiceForm = createAirplane(title, tourData);
 
-    checkSeat(choiceForm, data);
+    checkSeat(choiceForm, data, tourData.id);
 
     main.append(choiceForm);
 };

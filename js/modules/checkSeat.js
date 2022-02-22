@@ -1,6 +1,6 @@
-import createElement from "./createElements.js";
+import { setStorage, getStorage } from "./service/storage.js";
 
-const checkSeat = (form, data) => {
+const checkSeat = (form, data, id) => {
     form.addEventListener('change', () => {
         const formData = new FormData(form);
         const checked = [...formData].map(([, value]) => value);
@@ -14,10 +14,6 @@ const checkSeat = (form, data) => {
         };
     });
 
-    const title = createElement('h2', {
-        className: 'title',
-    });
-
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(form);
@@ -26,6 +22,8 @@ const checkSeat = (form, data) => {
         for (let i = 0; i < data.length; i++) {
             data[i].seat = booking;
         };
+
+        setStorage(id, data);
 
         form.remove();
 
