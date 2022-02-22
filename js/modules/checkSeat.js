@@ -1,11 +1,15 @@
 import { setStorage, getStorage } from "./service/storage.js";
 import createElement from "./createElements.js";
 
-const checkSeat = (form, data, id) => {
+const checkSeat = (dataResponse, form, data, id) => {
+    const bookingSeat = dataResponse.map(item => item.seat);
+
     form.addEventListener('change', () => {
-        const bookingSeat = getStorage(id).map(item => item.seat);
         const formData = new FormData(form);
         const checked = [...formData].map(([, value]) => value);
+
+        // Разблокировка кнопки отправки выбранных билетов
+        form.send.disabled = checked.length !== data.length;
 
         if (checked.length === data.length) {
             [...form].forEach(item => {
@@ -15,7 +19,7 @@ const checkSeat = (form, data, id) => {
             })
         } else {
             [...form].forEach(item => {
-                if (!bookingSeat.includes(item.value)) {
+                if (!bookingSeat.includes(item.value) && item.name === 'seat') {
                     item.disabled = false;
                 }
             })

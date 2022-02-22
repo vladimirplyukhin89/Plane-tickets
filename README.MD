@@ -1,4 +1,4 @@
-# Air ticket's booking seats site on vanilla JavaScript
+# Air ticket's booking seats app on vanilla JavaScript
 <p align-item='right'>
     <img src="./img/promo_1.png" width="600" title="Batman promo">
 </p>

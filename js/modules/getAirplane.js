@@ -15,7 +15,9 @@ const createCockpit = (title) => {
     const button = createElement('button', {
         className: 'cockpit-confirm',
         type: 'submit',
+        name: 'send',
         textContent: 'Подтвердить',
+        disabled: true,
     });
 
     cockpit.append(titleName, button);
@@ -68,9 +70,9 @@ const createBlockSeats = (n, count, bookedSeats) => {
     return fuselage;
 };
 
-const createAirplane = (title, tourData) => {
+const createAirplane = (dataResponse, title, tourData) => {
     const scheme = tourData.scheme;
-    const bookedSeats = getStorage(tourData.id)
+    const bookedSeats = dataResponse
         .map(item => item.seat);
 
     const choicesSeat = createElement('form', {
@@ -109,11 +111,12 @@ function declOfNum(number, titles) {
 
 
 
-const getAirplane = (main, data, tourData) => {
+const getAirplane = async (main, data, tourData) => {
     const title = `Выберите ${data.length} ${declOfNum(data.length, ['место', 'места', 'мест'])}`;
-    const choiceForm = createAirplane(title, tourData);
+    const dataResponse = await getStorage(tourData.id)
+    const choiceForm = createAirplane(dataResponse, title, tourData);
 
-    checkSeat(choiceForm, data, tourData.id);
+    checkSeat(dataResponse, choiceForm, data, tourData.id);
 
     main.append(choiceForm);
 };

@@ -1,24 +1,18 @@
-export const getStorage = (id) => {
-    if (localStorage.getItem(`tour-${id}`)) {
-        return JSON.parse(localStorage.getItem(`tour-${id}`));
-    } else {
-        return [];
-    };
+const STORAGE = 'https://airplane-methed.herokuapp.com/airplane/';
+
+export const getStorage = async (id) => {
+    let promise = await fetch(`${STORAGE}${id}`);
+    let response = await promise.json();
+
+    return response?.seats || [];
 };
 // Для сравнения выбранных кресел
 export const setStorage = (id, data) => {
-    const storage = getStorage(id);
-    const filteredBooking = storage.filter(item => {
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].ticket === item.ticket) {
-                return false;
-            }
-        }
-        return item;
+    fetch(`${STORAGE}${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
     });
-
-    const newBooking = [...filteredBooking, ...data];
-
-    localStorage.setItem(`tour-${id}`, JSON.stringify(newBooking));
-
 };
