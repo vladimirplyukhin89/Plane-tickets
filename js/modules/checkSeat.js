@@ -1,4 +1,4 @@
-import createAirplane from "./getAirplane.js"
+import createElement from "./createElements.js";
 
 const checkSeat = (form, data) => {
     form.addEventListener('change', () => {
@@ -10,8 +10,12 @@ const checkSeat = (form, data) => {
                 if (item.checked === false && item.name === 'seat') {
                     item.disabled = true;
                 }
-            })
-        }
+            });
+        };
+    });
+
+    const title = createElement('h2', {
+        className: 'title',
     });
 
     form.addEventListener('submit', (e) => {
@@ -21,9 +25,17 @@ const checkSeat = (form, data) => {
 
         for (let i = 0; i < data.length; i++) {
             data[i].seat = booking;
-        }
+        };
 
-        console.log(data);
+        form.remove();
+
+        document.body.innerHTML = `
+            <h1 class="title">Спасибо, хорошего полёта</h1>
+            <h2 class="title">${booking.length > 2 ?
+                `Ваши места - ${booking}` :
+                `Ваше место - ${booking}`
+            }</h2>
+    `;
     });
 
 };
