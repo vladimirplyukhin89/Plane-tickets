@@ -7,7 +7,7 @@ export const getStorage = (id) => {
 };
 // Для сравнения выбранных кресел
 export const setStorage = (id, data) => {
-    const storage = getStorage();
+    const storage = getStorage(id);
     const filteredBooking = storage.filter(item => {
         for (let i = 0; i < data.length; i++) {
             if (data[i].ticket === item.ticket) {

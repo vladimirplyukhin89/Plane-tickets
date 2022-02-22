@@ -2,6 +2,7 @@ import { setStorage, getStorage } from "./service/storage.js";
 
 const checkSeat = (form, data, id) => {
     form.addEventListener('change', () => {
+        const bookingSeat = getStorage(id).map(item => item.seat);
         const formData = new FormData(form);
         const checked = [...formData].map(([, value]) => value);
 
@@ -10,8 +11,16 @@ const checkSeat = (form, data, id) => {
                 if (item.checked === false && item.name === 'seat') {
                     item.disabled = true;
                 }
-            });
-        };
+            })
+        } else {
+            [...form].forEach(item => {
+                if (!bookingSeat.includes(item.value)) {
+                    item.disabled = false;
+                }
+            })
+
+        }
+
     });
 
     form.addEventListener('submit', (e) => {

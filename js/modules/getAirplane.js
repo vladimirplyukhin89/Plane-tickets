@@ -1,5 +1,6 @@
 import createElement from "./createElements.js";
 import checkSeat from "./checkSeat.js";
+import { getStorage } from "./service/storage.js";
 
 const createCockpit = (title) => {
     const cockpit = createElement('div', {
@@ -29,7 +30,7 @@ const createExit = () => {
     return fuselage;
 };
 
-const createBlockSeats = (n, count) => {
+const createBlockSeats = (n, count, bookedSeats) => {
     const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
     const fuselage = createElement('ol', {
         className: 'fuselage',
@@ -47,11 +48,12 @@ const createBlockSeats = (n, count) => {
             });
 
             const wrapperCheck = createElement('label');
-
+            const seatValue = `${i}${letter}`;
             const check = createElement('input', {
                 name: 'seat',
                 type: 'checkbox',
-                value: `${i}${letter}`,
+                value: seatValue,
+                disabled: bookedSeats.includes(seatValue),
             });
 
             wrapperCheck.append(check);
@@ -69,6 +71,8 @@ const createBlockSeats = (n, count) => {
 
 const createAirplane = (title, tourData) => {
     const scheme = tourData.scheme;
+    const bookedSeats = getStorage(tourData.id)
+        .map(item => item.seat);
 
     const choicesSeat = createElement('form', {
         className: 'choices-seat',
@@ -87,7 +91,7 @@ const createAirplane = (title, tourData) => {
     const elements = scheme.map((item) => {
         if (item === 'exit') return createExit();
         if (typeof item === 'number') {
-            const blockSeats = createBlockSeats(n, item);
+            const blockSeats = createBlockSeats(n, item, bookedSeats);
             n = n + item;
             return blockSeats;
         }
